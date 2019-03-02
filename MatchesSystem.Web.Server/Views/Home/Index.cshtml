@@ -1,0 +1,42 @@
+﻿@model IList<MatchesSystem.Web.Server.Models.MatchViewModel>
+
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.1.220/styles/kendo.material.mobile.min.css" />
+
+<script type="text/x-kendo-template" id="matches-template">
+    <tr class="match">
+        <th scope="row" data-bind="text: MatchID"></th>
+        <td data-bind="text: Name"></td>
+        <td data-bind="date: StartDate" data-dateformat="dd/MM/yyyy HH:mm"></td>
+        <td data-bind="text: MatchType"></td>
+        <td data-bind="text: OddsCount"></td>
+    </tr>
+</script>
+
+<div id="matches-pager" class="k-pager-wrap"></div>
+<table class="table table-bordered" id="matches-listview">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">StartDate</th>
+            <th scope="col">MatchType</th>
+            <th scope="col">OddsCount</th>
+        </tr>
+    </thead>
+    <tbody data-role="listview"
+           data-template="matches-template"
+           data-bind="source: matches"></tbody>
+</table>
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.4.0.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="https://kendo.cdn.telerik.com/2019.1.220/js/kendo.all.min.js"></script>
+    <script src="~/Scripts/Libraries/KendoUI/kendo-data-date-extender.js"></script>
+    <script>
+        var matches = @Html.Raw(Json.Encode(Model));
+    </script>
+    <script src="~/Scripts/Home/index.js"></script>
+}
